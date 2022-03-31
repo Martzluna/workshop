@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.contentRoot {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.contentRoot div:first-child {
+  flex: 1;
+}
+.contentRoot div:last-child {
+  flex: 3;
+}
