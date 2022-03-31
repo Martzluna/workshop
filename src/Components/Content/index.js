@@ -56,23 +56,23 @@ function Content() {
                 },
                 primary_topic: {
                     values: valuesPrimaryTopic,
-                    label: "Industry Segment"
+                    label: "Primary Topic"
                 },
                 session_type: {
                     values: valuesSessionType,
-                    label: "Industry Segment"
+                    label: "Session Type"
                 },
                 audience_type: {
                     values: valuesAudienceType,
-                    label: "Industry Segment"
+                    label: "Audience Type"
                 },
                 lenguage: {
                     values: valuesLenguage,
-                    label: "Industry Segment"
+                    label: "Language"
                 },
                 audience_level: {
                     values: valuesAudienceLevel,
-                    label: "Industry Segment"
+                    label: "Audience Level"
                 },
             })
             setDataList(data)
