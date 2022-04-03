@@ -1,12 +1,11 @@
 import React from 'react'
 
-function Filter({ categories, selectFilter }) {
+function Filter({ categories, selectFilter, filterSearch }) {
   const listCategories = Object.keys(categories)
-
   return (
     <div>
       <div>
-        <input type="search" />
+        <input type="search" onChange={filterSearch}/>
         <button>Buscar</button>
       </div>
       <br></br>

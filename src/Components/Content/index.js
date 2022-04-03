@@ -4,7 +4,14 @@ import FilterLeft from './FilterLeft'
 import List from './List'
 
 const api_url = "https://6243a5813da3ac772b04e2cd.mockapi.io/sessions"
+
+function useForceUpdate() {
+    const [value, setValue] = useState(0); // integer state
+    return () => setValue(value => value + 1); // update the state to force render
+}
+
 function Content() {
+    const forceUpdate = useForceUpdate();
     const [categories, setCategories] = useState({
         industry_segment: {
             label: "",
@@ -77,20 +84,35 @@ function Content() {
             })
             setDataList(data)
         } else {
-            console.log(data.filter(item => item[filtered.type] === filtered.value ))
-            setDataList(data.filter(item => item[filtered.type] === filtered.value ))
+            setDataList(data.filter(item => item[filtered.type] === filtered.value))
         }
-        
+
     }
     const selectFilter = (filter) => {
-        setCategories(prev => ({...prev, [filter.type]: {...prev[filter.type], checked: filter.value }}))
+        setCategories(prev => ({ ...prev, [filter.type]: { ...prev[filter.type], checked: filter.value } }))
         getData(filter)
     }
-    console.log(categories);
+    const addNewFavorite = (id) => {
+        const listFavorites = JSON.parse(localStorage.getItem("favorites")) || []
+        const ifExists = [...listFavorites].indexOf(id) > - 1
+        const newArray = ifExists ? listFavorites.filter(item => item !== id) : [...listFavorites, id]
+        localStorage.setItem("favorites", JSON.stringify(listFavorites ? newArray : [id]))
+        forceUpdate()
+    }
+
+    const filterSearch = async (e) => {
+        const search = e.target.value
+        await getData()
+        if(search.length) {
+            setDataList(dataList.filter(item => item.title.toLowerCase().includes(e.target.value.toLowerCase())))
+        } 
+            
+    }
+
     return (
         <div className='container contentRoot'>
-            <FilterLeft categories={categories} selectFilter={selectFilter} />
-            <List data={dataList} />
+            <FilterLeft categories={categories} selectFilter={selectFilter} filterSearch={filterSearch} />
+            <List data={dataList} addNewFavorite={addNewFavorite} />
         </div>
     )
 }
