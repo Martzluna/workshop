@@ -1,10 +1,9 @@
 import moment from 'moment';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 
 function List({ data = [], addNewFavorite }) {
     const listFavorites = JSON.parse(localStorage.getItem("favorites")) || []
-    const [groupSelected, setgroupSelected] = useState({})
     const [listData, setListData] = useState(data)
     const groups = data.reduce((groups, game) => {
         const date = game.date.split('T')[0];
@@ -21,6 +20,10 @@ function List({ data = [], addNewFavorite }) {
             setListData(data)
         }
     }
+    useEffect(() => {
+      setListData(data)
+    }, [data])
+    
     return (
         <div className='container'>
             <div>
